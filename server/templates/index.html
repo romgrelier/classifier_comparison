@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block body %}
+    <h2>Paramêtre</h2>
+    <div class="form-group">
+        <label for="inputData">Choix du jeu de données</label>
+        <div class="input-group" id="inputData">
+            <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                {% for item in items %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor%}
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Valider</button>
+            </div>
+        </div>
+    <div class="form-group">
+        <label for="inputClass">Choix de l'attribue classe</label>
+        <div class="input-group" id="inputClass">
+            <select class="custom-select" id="inputGroupSelect05" aria-label="Example select with button addon">
+                <option selected>Choose...</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Valider</button>
+            </div>
+        </div>
+    </div>
+
+    <h2>Information jeu de données</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Information</th>
+                <th scope="col">Valeur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre de classes</th>
+                <td>{{ decisionTree.n_classes_ }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Nombre de caractéristiques</th>
+                <td>{{ decisionTree.n_features_ }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Nombre de sorties</th>
+                <td>{{ decisionTree.n_outputs_ }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Information arbre</h2>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">c</th>
+            <th scope="col">First</th>
+          </tr>
+        </thead>
+          <tr>
+            <th scope="row">3</th>
+            <td>{{ decisionTree.tree_.min_samples_split }}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>{{ decisionTree.tree_.min_samples_leaf }}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>{{ decisionTree.tree_.min_weight_leaf }}</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>{{ decisionTree.tree_.max_depth }}</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>{{ decisionTree.tree_.max_leaf_nodes }}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>{{ decisionTree.tree_.min_impurity_decrease }}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>{{ decisionTree.tree_.min_impurity_split }}</td>
+          </tr>
+        </tbody>
+    </table>
+    
+    <img src="data:image/svg;base64,{{chart_output|safe}}" />
+    
+    
+{% endblock %}
