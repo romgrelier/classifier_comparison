@@ -29,6 +29,7 @@ class Dataset:
             mushroom_df = pd.read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/mushroom/agaricus-lepiota.data", names=["poisonous", "cap-shape", "cap-surface", "cap-color", "bruises", "odor", "gill-attachment", "gill-spacing", "gill-size", "gill-color", "stalk-shape", "stalk-root", "stalk-surface-above-ring", "stalk-surface-below-ring", "stalk-color-above-ring", "stalk-color-below-ring", "veil-type", "veil-color", "ring-number", "ring-type", "spore-print-color", "population", "habitat"])
             for col in list(mushroom_df):
                 mushroom_df[col] = lb_make.fit_transform(mushroom_df[col])
+            self.df = mushroom_df
         elif dataset == "optdigits": 
             self.df = pd.read_csv("https://datahub.io/machine-learning/optdigits/r/optdigits.csv")
         else:
@@ -59,7 +60,8 @@ class Dataset:
         plt.show()
 
 dataset = Dataset()
-dataset.load("optdigits")
-dataset.evaluate("class")
 
 datasets = ["iris", "krkopt", "mushroom", "optdigits"]
+
+dataset.load("mushroom")
+dataset.evaluate("poisonous")
