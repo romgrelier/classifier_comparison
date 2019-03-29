@@ -7,6 +7,9 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn import tree
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score
+from sklearn.utils import shuffle
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
 
 class Dataset:
     def __init__(self):
@@ -39,10 +42,15 @@ class Dataset:
         leaf_count = []
         score_record = []
 
+        # shuffle the dataset
+        self.df = shuffle(self.df)
+
+        # split datas for data (x) and target (y)
         x = self.df.loc()[:, self.df.columns != target]
         y = self.df.loc()[:, target]
         N = self.df.shape[0]
 
+        # build classifiers
         clfs = {}
         for i in np.arange(2, N * 0.1, int((N * 0.1)/10)):
             clfs[f"Decision Tree min_samples_leaf={int(i)}"] = tree.DecisionTreeClassifier(min_samples_leaf=int(i))
@@ -53,6 +61,26 @@ class Dataset:
             scores = cross_val_score(clf, x, y, cv=5)
             score_record.append(scores)
 
+        # search for the best parameter
+        result = []
+        for i in range(len(score_record)):
+            #print(f"{leaf_count[i]} min per leaf : {np.mean(score_record[i])}")
+            result.append((leaf_count[i], np.mean(score_record[i])))
+
+        best_parameter = int(sorted(result, key=lambda x: x[1], reverse=True)[0][0])
+        print(f"best parameter : {best_parameter}")
+
+        # train with the best parameter
+        X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33)
+
+        best_cls = tree.DecisionTreeClassifier(min_samples_leaf=best_parameter)
+        best_cls.fit(X_train, y_train)
+        y_pred = best_cls.predict(X_test)       
+
+        # evaluate final model
+        print(f"final accuracy = {accuracy_score(y_test, y_pred)}")
+
+        # cross validation result
         fig = plt.figure()
         plt.boxplot(score_record)
         ax = fig.add_subplot(111)
@@ -63,5 +91,5 @@ dataset = Dataset()
 
 datasets = ["iris", "krkopt", "mushroom", "optdigits"]
 
-dataset.load("mushroom")
-dataset.evaluate("poisonous")
+dataset.load("optdigits")
+dataset.evaluate("class")
