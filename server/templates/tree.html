@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<h1>Arbre</h1>
+
+<img class="img-fluid" src="data:image/png;base64,{{chart_output|safe}}" />
+
+<h2>Information sur l'arbre</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">c</th>
+        <th scope="col">First</th>
+      </tr>
+    </thead>
+      <tr>
+        <th scope="row">3</th>
+        <td>{{ decision_tree.tree_.min_samples_split }}</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>{{ decision_tree.tree_.min_samples_leaf }}</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>{{ decision_tree.tree_.min_weight_leaf }}</td>
+      </tr>
+      <tr>
+        <th scope="row">4</th>
+        <td>{{ decision_tree.tree_.max_depth }}</td>
+      </tr>
+      <tr>
+        <th scope="row">4</th>
+        <td>{{ decision_tree.tree_.max_leaf_nodes }}</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>{{ decision_tree.tree_.min_impurity_decrease }}</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>{{ decision_tree.tree_.min_impurity_split }}</td>
+      </tr>
+    </tbody>
+</table>
+
+{% endblock %}

@@ -42,7 +42,7 @@ def build_graph(x_coordinates, y_coordinates):
 
 
     img = io.BytesIO()
-    plt.savefig(img, format='svg')
+    plt.savefig(img, format='png')
     img.seek(0)
     graph_url = base64.b64encode(img.getvalue()).decode()
     plt.close()

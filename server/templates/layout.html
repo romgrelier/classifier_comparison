@@ -1,24 +1,36 @@
 <!doctype html>
-<title>Flaskr</title>
-<script src="{{ url_for('static', filename='js/lib/jquery.slim.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/lib/bootstrap.min.js') }}"></script>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}">
-<div class=page>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Comparaison d'algorithmes de classification</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="#">Features</a>
-        <a class="nav-item nav-link" href="#">Pricing</a>
-        <a class="nav-item nav-link disabled" href="#">Disabled</a>
-      </div>
-    </div>
-  </nav>
+<html lang="fr">
+  <head>
+    <title>Comparaison d'algorithmes de classification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <script src="{{ url_for('static', filename='js/lib/jquery.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/bootstrap.min.js') }}"></script>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/layout.css') }}">
+  </head>
+
+
   <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+      <a class="navbar-brand" href="#">Comparaison d'algorithmes de classification</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="/">Accueil <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="/data">Données</a>
+          <a class="nav-item nav-link" href="/tree">Arbre</a>
+          <a class="nav-item nav-link" href="/resultat">Resultats</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="page container">
     {% block body %}{% endblock %}
   </div>
-</div>
+
+</html>
