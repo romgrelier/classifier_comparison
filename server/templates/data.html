@@ -8,6 +8,9 @@
     <label for="inputData">Choix du jeu de données</label>
     <form class="input-group" id="inputData" method="post">
         <select class="custom-select" id="inputGroupSelect04" name="nom_data" aria-label="Example select with button addon">
+        {% if 'nom_data' in session %}
+            <option value="{{ session['nom_data'] }} selected">{{ session['nom_data'] }}</option>
+        {% endif%}
         {% for data in datas %}
             <option value="{{ data }}">{{ data }}</option>
         {% endfor%}
@@ -16,17 +19,15 @@
             <button class="btn btn-outline-secondary" type="submit">Valider</button>
         </div>
     </form>
-    <form class="form-group">
-        <label for="inputClass">Choix de l'attribue classe</label>
-        <div class="input-group" id="inputClass" method="post">
-            <select class="custom-select" id="inputGroupSelect05" name="nom_target" aria-label="Example select with button addon">
-            {% for target in targets %}
-                <option value="{{ target }}">{{ target }}</option>
-            {% endfor%}
-            </select>
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit">Valider</button>
-            </div>
+    <label for="inputClass">Choix de l'attribue classe</label>
+    <form class="input-group" id="inputClass" method="post">
+        <select class="custom-select" id="inputGroupSelect05" name="nom_target" aria-label="Example select with button addon">
+        {% for target in targets %}
+            <option value="{{ target }}">{{ target }}</option>
+        {% endfor%}
+        </select>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Valider</button>
         </div>
     </form>
 </div>

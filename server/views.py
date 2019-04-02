@@ -18,17 +18,18 @@ def data_():
     if request.method == 'POST':
         if "nom_data" in request.form:
             session["nom_data"] = request.form["nom_data"]
-            session.pop("nom_target", None)
         if "nom_target" in request.form:
             session["nom_target"] = request.form["nom_target"]
 
     dataset = Dataset()
+    nom_data = ""
     if "nom_data" in session:
         dataset.load(session["nom_data"])
+        nom_data = session["nom_data"]
     else:
         dataset.load("optdigits")
 
-    return render_template('data.html', dataframe = dataset.df, datas = datasets, targets = dataset.targets)
+    return render_template('data.html', dataframe = dataset.df, datas = [x for x in datasets if x != nom_data], targets = dataset.targets)
 
 @app.route('/tree')
 def tree_():
