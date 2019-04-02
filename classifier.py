@@ -85,6 +85,7 @@ class Dataset:
         plt.boxplot(score_record)
         ax = fig.add_subplot(111)
         ax.set_xticklabels(leaf_count)
+        plt.xlabel("leaf_count")
         plt.show()
 
 dataset = Dataset()
