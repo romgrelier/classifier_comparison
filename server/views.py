@@ -18,16 +18,20 @@ def data_():
     if request.method == 'POST':
         if "nom_data" in request.form:
             session["nom_data"] = request.form["nom_data"]
+            session.pop("nom_target")
         if "nom_target" in request.form:
             session["nom_target"] = request.form["nom_target"]
 
     dataset = Dataset()
-    nom_data = ""
+    nom_data = "iris"
     if "nom_data" in session:
         dataset.load(session["nom_data"])
         nom_data = session["nom_data"]
     else:
         dataset.load("iris")
+    
+    if not "nom_target" in session:
+        session["nom_target"] = dataset.targets[0]
 
     return render_template('data.html', dataframe = dataset.df, datas = [x for x in datasets if x != nom_data], targets =  [x for x in dataset.targets if x != nom_data])
 
@@ -60,7 +64,7 @@ def resultat_():
     if "nom_data" in session:
         dataset.load(session["nom_data"])
     else:
-        dataset.load("optdigits")
+        dataset.load("iris")
 
     target = dataset.targets[0]
 
