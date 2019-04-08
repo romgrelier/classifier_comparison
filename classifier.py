@@ -77,7 +77,7 @@ class Dataset:
 
         best_cls = tree.DecisionTreeClassifier(min_samples_leaf=best_parameter)
         best_cls.fit(X_train, y_train)
-        y_pred = best_cls.predict(X_test)       
+        y_pred = best_cls.predict(X_test)
 
         # evaluate final model
         print(f"final accuracy = {accuracy_score(y_test, y_pred)}")

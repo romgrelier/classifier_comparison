@@ -3,9 +3,56 @@
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-4">Fluid jumbotron</h1>
-        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+        <h1 class="display-4">Comparaison de classifieurs</h1>
     </div>
+</div>
+
+<div class="jumbotron">
+    <h3>Introduction</h3>
+    <p>
+        Cette interface web permet la comparaison de plusieurs algorithmes de classification avec différents datasets.
+    </p>
+
+    <h3>Datasets</h3>
+    <p>Quatre jeux de données sont proposés :</p>
+
+    <ul>
+        <il><strong>optdigits</strong> : chiffres écrits de manière manuscrite par des personnes différentes, c'est un
+            problème de reconnaissance de chiffres via des matrices représentant les différentes images.</il><br />
+        <il><strong>iris</strong> : problème de reconnaissance d'iris à partir des caractéristiques de leurs pétales
+        </il><br />
+        <il><strong>mushroom</strong> : déterminer si un champignon est vénéneux</il><br />
+        <il><strong>krkop</strong> (King-Rook vs. King) : </il><br />
+    </ul>
+
+    <p>
+        Les quatre datasets sont téléchargés directement depuis le site de l'uci, qui sont par la suite normalisés avant
+        d'être utilisés pour la classification.
+    </p>
+
+    <h3>Méthodes utilisée</h3>
+    <p>
+        Nous utilisons 3 algorithmes de classification :
+    </p>
+
+    <ul>
+        <li><strong>Arbre de décision</strong> : Le nombre d'exemple par feuille est paramètrable avec un nombre N
+        </li><br />
+        <li><strong>Random Forest</strong> : comme pour l'arbre de décision le nombre minimum d'exemple minimum avec
+            N</li><br />
+        <li><strong>KNN</strong> : ici N donne le nombre de voisin</li><br />
+    </ul>
+
+    <p>
+        Pour chaque algorithme est appliqué la cross validation en faisant varier leur paramètre N, puis est conservé le meilleur paramètre.
+    </p>
+
+    <h3>Resultats</h3>
+    <p>
+        Ici l'accent est mis sur l'arbre de décision, il est donc possible de choisir le dataset, la classe à prédire.
+        Une fois ces paramètres renseignés la cross validation est appliquée, puis le meilleur paramètre conservé génère un nouveau modèle dont l'arbre est affiché dans l'onglet "Données".
+        Les résultats de la cross validation se situent dans l'onglet "Resultats" où est affiché en fonction du nombre N de l'algorithme. 
+    </p>
 </div>
 
 {% endblock %}
