@@ -7,7 +7,7 @@
 <div class="form-group">
     <label for="inputData">Choix du jeu de données</label>
     <form class="input-group" id="inputData" method="post">
-        <select class="custom-select" id="inputGroupSelect04" name="nom_data" aria-label="Example select with button addon">
+        <select class="custom-select" id="inputGroupSelect04" name="nom_data" >
         {% if 'nom_data' in session %}
             <option value="{{ session['nom_data'] }} selected">{{ session['nom_data'] }}</option>
         {% endif%}
@@ -21,7 +21,10 @@
     </form>
     <label for="inputClass">Choix de l'attribue classe</label>
     <form class="input-group" id="inputClass" method="post">
-        <select class="custom-select" id="inputGroupSelect05" name="nom_target" aria-label="Example select with button addon">
+        <select class="custom-select" id="inputGroupSelect05" name="nom_target">
+        {% if 'nom_target' in session %}
+            <option value="{{ session['nom_data'] }} selected">{{ session['nom_target'] }}</option>
+        {% endif%}
         {% for target in targets %}
             <option value="{{ target }}">{{ target }}</option>
         {% endfor%}

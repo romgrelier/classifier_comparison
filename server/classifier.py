@@ -58,10 +58,19 @@ class Dataset:
             scores = cross_val_score(clf, self.x, self.y, cv=5)
             score_record.append(scores)
 
+        # search for the best parameter
+        result = []
+        for i in range(len(score_record)):
+            #print(f"{leaf_count[i]} min per leaf : {np.mean(score_record[i])}")
+            result.append((leaf_count[i], np.mean(score_record[i])))
+
+        self.best_parameter = int(sorted(result, key=lambda x: x[1], reverse=True)[0][0])
+
         fig = plt.figure()
         plt.boxplot(score_record)
         ax = fig.add_subplot(111)
         ax.set_xticklabels(leaf_count)
+        plt.xlabel("leaf_count")
         
         imgdata = io.BytesIO()
         fig.savefig(imgdata, format='png')

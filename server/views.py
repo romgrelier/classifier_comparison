@@ -27,9 +27,9 @@ def data_():
         dataset.load(session["nom_data"])
         nom_data = session["nom_data"]
     else:
-        dataset.load("optdigits")
+        dataset.load("iris")
 
-    return render_template('data.html', dataframe = dataset.df, datas = [x for x in datasets if x != nom_data], targets = dataset.targets)
+    return render_template('data.html', dataframe = dataset.df, datas = [x for x in datasets if x != nom_data], targets =  [x for x in dataset.targets if x != nom_data])
 
 @app.route('/tree', defaults={'min': 2})
 @app.route('/tree/<int:min>')
@@ -38,7 +38,7 @@ def tree_(min):
     if "nom_data" in session:
         dataset.load(session["nom_data"])
     else:
-        dataset.load("optdigits")
+        dataset.load("iris")
 
     target = dataset.targets[0]
 
@@ -52,7 +52,7 @@ def tree_(min):
     chart_data = Source(dot_data)
     chart_output = chart_data.pipe(format='png')
     chart_output = base64.b64encode(chart_output).decode('utf-8')
-    return render_template('tree.html', decision_tree = decision_tree, chart_output = chart_output)
+    return render_template('tree.html', decision_tree = decision_tree, chart_output = chart_output, mim = min, best = dataset.best_parameter)
 
 @app.route('/resultat')
 def resultat_():

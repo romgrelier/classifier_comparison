@@ -4,45 +4,48 @@
 
 <h1>Arbre</h1>
 
+
+<script>
+  function process()
+  {
+    var url="http://localhost:5000/tree/" + document.getElementById("url").value;
+    location.href=url;
+    return false;
+  }
+</script>
+<label class="label">Nombre minimum d'exemple par split (meilleur = {{ best }})</label>
+<form class="input-group" onSubmit="return process();">
+  <input class="form-control" type="number" name="url" id="url" min="0" value="{{ mim }}"> 
+  <div class="input-group-append">
+    <input class="btn btn-outline-secondary" type="submit" value="Afficher">
+    </div>
+</form>
+  
+
 <img class="img-fluid" src="data:image/png;base64,{{chart_output|safe}}" onclick="window.open(this.src)" />
 
 <h2>Information sur l'arbre</h2>
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">c</th>
-        <th scope="col">First</th>
+        <th scope="col">Information</th>
+        <th scope="col">Valeur</th>
       </tr>
     </thead>
       <tr>
-        <th scope="row">3</th>
-        <td>{{ decision_tree.tree_.min_samples_split }}</td>
+        <th scope="row">Nombre de noeud</th>
+        <td>{{ decision_tree.tree_.node_count }}</td>
       </tr>
       <tr>
-        <th scope="row">3</th>
-        <td>{{ decision_tree.tree_.min_samples_leaf }}</td>
+        <th scope="row">Taille</th>
+        <td>{{ decision_tree.tree_.capacity }}</td>
       </tr>
       <tr>
-        <th scope="row">3</th>
-        <td>{{ decision_tree.tree_.min_weight_leaf }}</td>
-      </tr>
-      <tr>
-        <th scope="row">4</th>
+        <th scope="row">Profondeur maximum</th>
         <td>{{ decision_tree.tree_.max_depth }}</td>
-      </tr>
-      <tr>
-        <th scope="row">4</th>
-        <td>{{ decision_tree.tree_.max_leaf_nodes }}</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>{{ decision_tree.tree_.min_impurity_decrease }}</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>{{ decision_tree.tree_.min_impurity_split }}</td>
       </tr>
     </tbody>
 </table>
+
 
 {% endblock %}
