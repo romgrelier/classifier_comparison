@@ -19,8 +19,7 @@
     <h3>Introduction</h3>
     <p>
         Cette interface web permet la comparaison de plusieurs algorithmes de classification avec différents datasets.
-        Nous avons utilisé scikit-learn pour la cross validation et la création d'arbre de dicision, random forest et K-NN, avec les paramêtres par défault.
-        Plusieurs module dont pandas et matpotlib pour l'affichage des valeur.  
+        Les outils utilisés ici sont sklearn pour les algorithmes de classification, pandas pour la lecture des données (depuis des fichiers csv) ainsi que matpotlib pour l'affichagde des graphiques.
     </p>
 
     <h3>Datasets</h3>
@@ -62,6 +61,7 @@
         Ici l'accent est mis sur l'arbre de décision, il est donc possible de choisir le dataset, la classe à prédire.
         Une fois ces paramètres renseignés la cross validation est appliquée, puis le meilleur paramètre conservé génère un nouveau modèle dont l'arbre est affiché dans l'onglet "Données".
         Les résultats de la cross validation se situent dans l'onglet "Resultats" où est affiché en fonction du nombre N de l'algorithme. (Peut prendre du temps)
+        A part de paramètre N, les paramètres par défaut sont conservés.
     </p>
 </div>
 
