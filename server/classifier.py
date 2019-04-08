@@ -15,6 +15,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import normalize
 
 class Dataset:
     def __init__(self):
@@ -160,6 +161,8 @@ class Dataset:
         self.y = self.df.loc()[:, target]
         N = self.df.shape[0]
 
+        self.x = normalize(x, norm='l2')
+
         clfs = {}
         for i in np.arange(2, N * 0.1, int((N * 0.1)/10)):
             clfs[f"Decision Tree min_samples_leaf={int(i)}"] = tree.DecisionTreeClassifier(min_samples_leaf=int(i))
@@ -191,3 +194,4 @@ class Dataset:
 
 
 datasets = ["iris", "krkopt", "mushroom", "optdigits"]
+

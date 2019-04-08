@@ -12,6 +12,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier 
+from sklearn.preprocessing import normalize
 
 class Dataset:
     def __init__(self):
@@ -51,6 +52,8 @@ class Dataset:
         x = self.df.loc()[:, self.df.columns != target]
         y = self.df.loc()[:, target]
         N = self.df.shape[0]
+
+        x = normalize(x, norm='l2')
 
         # build classifiers
         clfs = {}
@@ -194,5 +197,5 @@ dataset = Dataset()
 
 datasets = ["iris", "krkopt", "mushroom", "optdigits"]
 
-dataset.load("optdigits")
-dataset.evaluate_knn("class")
+dataset.load("mushroom")
+dataset.evaluate_knn("poisonous")
