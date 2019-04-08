@@ -161,7 +161,7 @@ class Dataset:
         self.y = self.df.loc()[:, target]
         N = self.df.shape[0]
 
-        self.x = normalize(x, norm='l2')
+        self.x = normalize(self.x, norm='l2')
 
         clfs = {}
         for i in np.arange(2, N * 0.1, int((N * 0.1)/10)):
