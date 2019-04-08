@@ -31,8 +31,9 @@ def data_():
 
     return render_template('data.html', dataframe = dataset.df, datas = [x for x in datasets if x != nom_data], targets = dataset.targets)
 
-@app.route('/tree')
-def tree_():
+@app.route('/tree', defaults={'min': 2})
+@app.route('/tree/<int:min>')
+def tree_(min):
     dataset = Dataset()
     if "nom_data" in session:
         dataset.load(session["nom_data"])
@@ -45,14 +46,13 @@ def tree_():
         target = session["nom_target"]
     dataset.evaluate(target)
     
-    decision_tree = tree.DecisionTreeClassifier()
+    decision_tree = tree.DecisionTreeClassifier(min_samples_split=min)
     decision_tree = decision_tree.fit(dataset.x, dataset.y)
     dot_data = tree.export_graphviz(decision_tree, feature_names=[x for x in dataset.df.columns if x != target], filled=True)
     chart_data = Source(dot_data)
     chart_output = chart_data.pipe(format='png')
     chart_output = base64.b64encode(chart_output).decode('utf-8')
     return render_template('tree.html', decision_tree = decision_tree, chart_output = chart_output)
-
 
 @app.route('/resultat')
 def resultat_():
