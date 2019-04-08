@@ -31,7 +31,7 @@
     <form class="input-group" id="inputClass" method="post">
         <select class="custom-select" id="inputGroupSelect05" name="nom_target">
         {% if 'nom_target' in session %}
-            <option value="{{ session['nom_data'] }} selected">{{ session['nom_target'] }}</option>
+            <option value="{{ session['nom_target'] }} selected">{{ session['nom_target'] }}</option>
         {% endif%}
         {% for target in targets %}
             <option value="{{ target }}">{{ target }}</option>

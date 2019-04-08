@@ -18,7 +18,6 @@ def data_():
     if request.method == 'POST':
         if "nom_data" in request.form:
             session["nom_data"] = request.form["nom_data"]
-            session.pop("nom_target")
         if "nom_target" in request.form:
             session["nom_target"] = request.form["nom_target"]
 
@@ -29,11 +28,11 @@ def data_():
         nom_data = session["nom_data"]
     else:
         dataset.load("iris")
-    
-    if not "nom_target" in session:
+
+    if not session["nom_target"] in dataset.targets:
         session["nom_target"] = dataset.targets[0]
 
-    return render_template('data.html', dataframe = dataset.df, datas = [x for x in datasets if x != nom_data], targets =  [x for x in dataset.targets if x != nom_data])
+    return render_template('data.html', dataframe = dataset.df, datas = [x for x in datasets if x != nom_data], targets =  [x for x in dataset.targets if x != session["nom_target"]])
 
 @app.route('/tree', defaults={'min': 2})
 @app.route('/tree/<int:min>')
