@@ -1,4 +1,12 @@
 {% extends "layout.html" %}
+
+{% block navbar %}
+<a class="nav-item nav-link" href="/">Accueil</a>
+<a class="nav-item nav-link" href="/data">Données</a>
+<a class="nav-item nav-link" href="/tree">Arbre</a>
+<a class="nav-item nav-link active" href="/resultat">Resultats</a>
+{% endblock %}
+
 {% block body %}
 
 <h1>Résultat</h1>

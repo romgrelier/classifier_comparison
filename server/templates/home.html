@@ -1,4 +1,12 @@
 {% extends "layout.html" %}
+
+{% block navbar %}
+<a class="nav-item nav-link active" href="/">Accueil</a>
+<a class="nav-item nav-link" href="/data">Données</a>
+<a class="nav-item nav-link" href="/tree">Arbre</a>
+<a class="nav-item nav-link" href="/resultat">Resultats</a>
+{% endblock %}
+
 {% block body %}
 
 <div class="jumbotron jumbotron-fluid">
@@ -11,6 +19,8 @@
     <h3>Introduction</h3>
     <p>
         Cette interface web permet la comparaison de plusieurs algorithmes de classification avec différents datasets.
+        Nous avons utilisé scikit-learn pour la cross validation et la création d'arbre de dicision, random forest et K-NN, avec les paramêtres par défault.
+        Plusieurs module dont pandas et matpotlib pour l'affichage des valeur.  
     </p>
 
     <h3>Datasets</h3>
@@ -38,7 +48,7 @@
     <ul>
         <li><strong>Arbre de décision</strong> : Le nombre d'exemple par feuille est paramètrable avec un nombre N
         </li><br />
-        <li><strong>Random Forest</strong> : comme pour l'arbre de décision le nombre minimum d'exemple minimum avec
+        <li><strong>Random Forest</strong> : comme pour l'arbre de décision le nombre d'exemple minimum avec
             N</li><br />
         <li><strong>KNN</strong> : ici N donne le nombre de voisin</li><br />
     </ul>
@@ -51,7 +61,7 @@
     <p>
         Ici l'accent est mis sur l'arbre de décision, il est donc possible de choisir le dataset, la classe à prédire.
         Une fois ces paramètres renseignés la cross validation est appliquée, puis le meilleur paramètre conservé génère un nouveau modèle dont l'arbre est affiché dans l'onglet "Données".
-        Les résultats de la cross validation se situent dans l'onglet "Resultats" où est affiché en fonction du nombre N de l'algorithme. 
+        Les résultats de la cross validation se situent dans l'onglet "Resultats" où est affiché en fonction du nombre N de l'algorithme. (Peut prendre du temps)
     </p>
 </div>
 
