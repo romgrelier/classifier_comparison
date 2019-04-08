@@ -1,15 +1,20 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
 import os
 import base64
 import io
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
 from sklearn import datasets
 from sklearn.preprocessing import LabelEncoder
 from sklearn import tree
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score
+from sklearn.utils import shuffle
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 
 class Dataset:
     def __init__(self):
@@ -39,6 +44,115 @@ class Dataset:
         else:
             print("Unknown dataset")
         self.targets = self.df.columns
+
+    def evaluate_knn(self, target):
+        leaf_count = []
+        score_record = []
+
+        # shuffle the dataset
+        self.df = shuffle(self.df)
+
+        # split datas for data (x) and target (y)
+        x = self.df.loc()[:, self.df.columns != target]
+        y = self.df.loc()[:, target]
+        N = self.df.shape[0]
+
+        # build classifiers
+        clfs = {}
+        for i in np.arange(2, N * 0.1, int((N * 0.1)/10)):
+            clfs[f"KNN n_neighbors={int(i)}"] = KNeighborsClassifier(n_neighbors=int(i))
+            leaf_count.append(i)
+            
+        # build models
+        for name, clf in clfs.items():
+            scores = cross_val_score(clf, x, y, cv=5)
+            score_record.append(scores)
+
+        # search for the best parameter
+        result = []
+        for i in range(len(score_record)):
+            #print(f"{leaf_count[i]} min per leaf : {np.mean(score_record[i])}")
+            result.append((leaf_count[i], np.mean(score_record[i])))
+
+        best_parameter = int(sorted(result, key=lambda x: x[1], reverse=True)[0][0])
+        print(f"best parameter : {best_parameter}")
+
+        # train with the best parameter
+        X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33)
+
+        best_cls = tree.DecisionTreeClassifier(min_samples_leaf=best_parameter)
+        best_cls.fit(X_train, y_train)
+        y_pred = best_cls.predict(X_test)       
+
+        # evaluate final model
+        print(f"final accuracy = {accuracy_score(y_test, y_pred)}")
+
+        # cross validation result
+        fig = plt.figure()
+        plt.boxplot(score_record)
+        ax = fig.add_subplot(111)
+        ax.set_xticklabels(leaf_count)
+        plt.xlabel("leaf_count")
+        
+        imgdata = io.BytesIO()
+        fig.savefig(imgdata, format='png')
+        imgdata.seek(0)
+        return base64.b64encode(imgdata.read()).decode('utf-8')
+
+
+    def evaluate_random_forest(self, target):
+        leaf_count = []
+        score_record = []
+
+        # shuffle the dataset
+        self.df = shuffle(self.df)
+
+        # split datas for data (x) and target (y)
+        x = self.df.loc()[:, self.df.columns != target]
+        y = self.df.loc()[:, target]
+        N = self.df.shape[0]
+
+        # build classifiers
+        clfs = {}
+        for i in np.arange(2, N * 0.1, int((N * 0.1)/10)):
+            clfs[f"Decision Tree min_samples_leaf={int(i)}"] = RandomForestClassifier(min_samples_leaf=int(i))
+            leaf_count.append(i)
+            
+        # build models
+        for name, clf in clfs.items():
+            scores = cross_val_score(clf, x, y, cv=5)
+            score_record.append(scores)
+
+        # search for the best parameter
+        result = []
+        for i in range(len(score_record)):
+            #print(f"{leaf_count[i]} min per leaf : {np.mean(score_record[i])}")
+            result.append((leaf_count[i], np.mean(score_record[i])))
+
+        best_parameter = int(sorted(result, key=lambda x: x[1], reverse=True)[0][0])
+        print(f"best parameter : {best_parameter}")
+
+        # train with the best parameter
+        X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33)
+
+        best_cls = tree.DecisionTreeClassifier(min_samples_leaf=best_parameter)
+        best_cls.fit(X_train, y_train)
+        y_pred = best_cls.predict(X_test)       
+
+        # evaluate final model
+        print(f"final accuracy = {accuracy_score(y_test, y_pred)}")
+
+        # cross validation result
+        fig = plt.figure()
+        plt.boxplot(score_record)
+        ax = fig.add_subplot(111)
+        ax.set_xticklabels(leaf_count)
+        plt.xlabel("leaf_count")
+        
+        imgdata = io.BytesIO()
+        fig.savefig(imgdata, format='png')
+        imgdata.seek(0)
+        return base64.b64encode(imgdata.read()).decode('utf-8')
 
     def evaluate(self, target):
         leaf_count = []
