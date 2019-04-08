@@ -67,6 +67,9 @@ def resultat_():
     if "nom_target" in session:
         target = session["nom_target"]
     image1 = dataset.evaluate(target)
+    best1 = dataset.best_parameter
     image2 = dataset.evaluate_random_forest(target)
+    best2 = dataset.best_parameter
     image3 = dataset.evaluate_knn(target)
-    return render_template('resultat.html', image1 = image1, image2 = image2, image3 = image3)
+    best3 = dataset.best_parameter
+    return render_template('resultat.html', image1 = image1, best1 = best1, image2 = image2, best2 = best2, image3 = image3, best3 = best3)

@@ -80,12 +80,11 @@ class Dataset:
         # train with the best parameter
         X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33)
 
-        best_cls = tree.DecisionTreeClassifier(min_samples_leaf=best_parameter)
+        best_cls = tree.DecisionTreeClassifier(min_samples_leaf=self.best_parameter)
         best_cls.fit(X_train, y_train)
         y_pred = best_cls.predict(X_test)       
 
-        # evaluate final model
-        print(f"final accuracy = {accuracy_score(y_test, y_pred)}")
+        self.best_parameter = int(sorted(result, key=lambda x: x[1], reverse=True)[0][0])
 
         # cross validation result
         fig = plt.figure()
@@ -129,13 +128,12 @@ class Dataset:
             #print(f"{leaf_count[i]} min per leaf : {np.mean(score_record[i])}")
             result.append((leaf_count[i], np.mean(score_record[i])))
 
-        best_parameter = int(sorted(result, key=lambda x: x[1], reverse=True)[0][0])
-        print(f"best parameter : {best_parameter}")
+        self.best_parameter = int(sorted(result, key=lambda x: x[1], reverse=True)[0][0])
 
         # train with the best parameter
         X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33)
 
-        best_cls = tree.DecisionTreeClassifier(min_samples_leaf=best_parameter)
+        best_cls = tree.DecisionTreeClassifier(min_samples_leaf=self.best_parameter)
         best_cls.fit(X_train, y_train)
         y_pred = best_cls.predict(X_test)       
 
